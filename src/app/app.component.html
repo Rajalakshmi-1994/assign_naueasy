@@ -1,0 +1,77 @@
+<div style="text-align: center;">
+  <h2>Reactive Form with Ag-Grid</h2>
+
+  <form [formGroup]="ruleForm" (ngSubmit)="onSubmit()" style="margin-bottom: 20px;">
+    <input 
+    type="text"
+    formControlName="ruleName"
+    name="ruleName"
+    placeholder="Rule Name">
+    <div *ngIf="ruleForm.get('ruleName')?.invalid && ruleForm.get('ruleName')?.touched">
+    <span *ngIf="ruleForm.get('ruleName')?.hasError('required')">Rule name required</span>
+    </div>
+
+<label>Active
+  <select formControlName = "active" name="active" >
+    <option value="Y">Yes </option>
+    <option value="N"> No </option>
+  </select>
+</label>
+
+  <label>Type
+  <select formControlName = "type" name="type">
+    <option value="Match">Match</option>
+    <option value="Custom">Custom </option>
+    <option value="Monitor">Monitor </option>
+  </select>
+</label>
+
+  <label>Favourite
+  <select formControlName = "favourite" name="favourite">
+    <option value="Y">Yes </option>
+    <option value="N"> No </option>
+  </select>
+</label>
+
+  <label>Scheduled
+  <select formControlName = "scheduled" name="scheduled">
+    <option value="Y">Yes </option>
+    <option value="N"> No </option>
+  </select>
+</label>
+
+
+  <label>Created Date
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="picker" >
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  </label>
+  
+   <label>Alert
+  <select formControlName = "alert" name="alert">
+    <option value="Y">Yes </option>
+    <option value="N"> No </option>
+  </select>
+</label>
+
+  <br>
+  <button type="submit" [disabled]="ruleForm.invalid">Add</button>
+  </form>
+
+  <div>
+    <button class="bt-action" (click)="onRemoveSelected()">
+      Remove Selected
+    </button>
+    <button class="bt-action" (click)="getRowData()">Get Row Data</button>
+  </div>
+  <div>
+  <ag-grid-angular
+    style="width: 600px; height: 300px;"
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [rowSelection]="rowSelection">
+  </ag-grid-angular>
+</div>
