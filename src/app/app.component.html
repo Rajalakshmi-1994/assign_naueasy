@@ -17,6 +17,10 @@
     <option value="N"> No </option>
   </select>
 </label>
+<div *ngIf="ruleForm.get('active')?.invalid && ruleForm.get('active')?.touched">
+  <span *ngIf="ruleForm.get('active')?.hasError('required')">required</span>
+  </div>
+
 
   <label>Type
   <select formControlName = "type" name="type">
@@ -25,6 +29,10 @@
     <option value="Monitor">Monitor </option>
   </select>
 </label>
+<div *ngIf="ruleForm.get('type')?.invalid && ruleForm.get('type')?.touched">
+  <span *ngIf="ruleForm.get('type')?.hasError('required')"> required</span>
+  </div>
+
 
   <label>Favourite
   <select formControlName = "favourite" name="favourite">
@@ -41,13 +49,14 @@
 </label>
 
 
-  <label>Created Date
+<label>Created Date
   <mat-form-field>
-    <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="picker" >
+    <input matInput [matDatepicker]="picker" formControlName="createdDate" placeholder="Choose a date">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
-  </label>
+</label>
+
   
    <label>Alert
   <select formControlName = "alert" name="alert">

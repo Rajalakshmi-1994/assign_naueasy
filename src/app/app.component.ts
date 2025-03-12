@@ -59,10 +59,10 @@ export class AppComponent {
       ruleName: ['', [Validators.required, Validators.minLength(4)]],
       active: ['', Validators.required],
       type: ['', Validators.required],
-      favourite: ['', Validators.required],
-      scheduled: ['', Validators.required],
-      createdDate: [''],
-      alert: ['', Validators.required]
+      favourite: [''],
+      scheduled:[''],
+      createdDate:[''],
+      alert:  [''],
     });
   }
 
@@ -77,12 +77,26 @@ export class AppComponent {
     this.gridApi = params.api;
   }
 
-   
+  getRowData() {
+    const rowData: any[] = [];
+    this.gridApi.forEachNode(function (node) {
+      rowData.push(node.data);
+    });
+    console.log("Row Data:");
+    console.log(rowData);
+  }
+
+  
   
   onRemoveSelected() {
     const selectedRowData = this.gridApi.getSelectedRows();
     this.gridApi.applyTransaction({ remove: selectedRowData });
   }
+
+
+  
+
+  
 
 
 }
