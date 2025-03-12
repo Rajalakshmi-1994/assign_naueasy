@@ -64,7 +64,6 @@
     <button class="bt-action" (click)="onRemoveSelected()">
       Remove Selected
     </button>
-    <button class="bt-action" (click)="getRowData()">Get Row Data</button>
   </div>
   <div>
   <ag-grid-angular
@@ -72,6 +71,7 @@
     class="ag-theme-alpine"
     [rowData]="rowData"
     [columnDefs]="columnDefs"
-    [rowSelection]="rowSelection">
+    [rowSelection]="rowSelection"
+    (gridReady)="onGridReady($event)">
   </ag-grid-angular>
 </div>

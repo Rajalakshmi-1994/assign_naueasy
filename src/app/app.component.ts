@@ -12,7 +12,8 @@ import { AllCommunityModule,
   //RowApiModule,
   //RowClassParams,
   //RowSelectionModule,
-  RowSelectionOptions, } from 'ag-grid-community'; 
+  RowSelectionOptions,
+  GridReadyEvent, } from 'ag-grid-community'; 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 @Component({
@@ -44,13 +45,14 @@ export class AppComponent {
 
   
   columnDefs: ColDef[] = [
-    { field: 'ruleName', headerName: 'Rule Name', sortable: true, filter: true ,editable: true},
-    { field: 'active', headerName: 'Is Active', sortable: true, filter: true },
-    { field: 'favourite', headerName: 'Is Favourite', sortable: true, filter: true },
-    { field: 'scheduled', headerName: 'Is Scheduled', sortable: true, filter: true },
-    { field: 'createdDate', headerName: 'Created Date', sortable: true, filter: true },
-    { field: 'alert', headerName: 'Alert', sortable: true, filter: true }
+    { field: 'ruleName', headerName: 'Rule Name', sortable: true, filter: true , editable: true},
+    { field: 'active', headerName: 'Is Active', sortable: true, filter: true ,editable: true },
+    { field: 'favourite', headerName: 'Is Favourite', sortable: true, filter: true , editable: true},
+    { field: 'scheduled', headerName: 'Is Scheduled', sortable: true, filter: true, editable: true },
+    { field: 'createdDate', headerName: 'Created Date', sortable: true, filter: true , editable: true},
+    { field: 'alert', headerName: 'Alert', sortable: true, filter: true , editable: true}
   ];
+  gridOptions: any;
 
   constructor(private fb: FormBuilder) {
     this.ruleForm = this.fb.group({
@@ -71,24 +73,16 @@ export class AppComponent {
     }
   }
   
-  getRowData() {
-    const rowData: any[] = [];
-    this.gridApi.forEachNode(function (node) {
-      rowData.push(node.data);
-    });
-    console.log("Row Data:");
-    console.log(rowData);
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
   }
 
+   
+  
   onRemoveSelected() {
     const selectedRowData = this.gridApi.getSelectedRows();
     this.gridApi.applyTransaction({ remove: selectedRowData });
   }
-
-  // deleteRule(index: number) {
-  //   this.rowData.splice(index, 1);
-  //   this.rowData = [...this.rowData]; // Trigger change detection
-  // }
 
 
 }
