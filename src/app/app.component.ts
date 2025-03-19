@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { Component , ChangeDetectionStrategy} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AgGridModule } from 'ag-grid-angular';
+import {MatSelectModule} from '@angular/material/select';
+import {AfterViewInit, ElementRef, OnDestroy, ViewChild, inject} from '@angular/core';
+import {AutofillMonitor} from '@angular/cdk/text-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatGridListModule} from '@angular/material/grid-list';
 import { AllCommunityModule, 
   ModuleRegistry,
   ColDef, 
@@ -19,15 +25,22 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 @Component({
   selector: 'app-root',
   standalone: true, 
-  imports: [ReactiveFormsModule,
+  imports: 
+    [
+    ReactiveFormsModule,
     AgGridModule,
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
     CommonModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatGridListModule
       ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   
 
 })
@@ -65,8 +78,13 @@ export class AppComponent {
       alert:  [''],
     });
   }
+ 
+
 
   onSubmit() {
+    console.log("data");
+    console.log(this.ruleForm);
+
     if (this.ruleForm.valid) {
       this.rowData = [...this.rowData, this.ruleForm.value];
       this.ruleForm.reset();

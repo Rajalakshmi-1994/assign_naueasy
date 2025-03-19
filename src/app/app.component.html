@@ -1,78 +1,95 @@
 <div style="text-align: center;">
   <h2>Reactive Form with Ag-Grid</h2>
-
+ 
+  <mat-grid-list cols="1" rowHeight="2:1">
   <form [formGroup]="ruleForm" (ngSubmit)="onSubmit()" style="margin-bottom: 20px;">
-    <input 
-    type="text"
-    formControlName="ruleName"
-    name="ruleName"
-    placeholder="Rule Name">
+    <p>
+    <mat-form-field class="example-full-width">
+      <mat-label>Rule Name</mat-label>
+      <input matInput placeholder="Ex. Pizza" name="ruleName" formControlName="ruleName">
+    </mat-form-field>
+   </p>
+   
     <div *ngIf="ruleForm.get('ruleName')?.invalid && ruleForm.get('ruleName')?.touched">
     <span *ngIf="ruleForm.get('ruleName')?.hasError('required')">Rule name required</span>
     </div>
-
-<label>Active
-  <select formControlName = "active" name="active" >
-    <option value="Y">Yes </option>
-    <option value="N"> No </option>
-  </select>
-</label>
-<div *ngIf="ruleForm.get('active')?.invalid && ruleForm.get('active')?.touched">
+     <p>
+  <mat-form-field>
+    <mat-label>Active</mat-label>
+    <mat-select  formControlName="active" name="active">
+      <mat-option value="Y">Yes</mat-option>
+      <mat-option value="N"> No</mat-option>
+    </mat-select>
+  </mat-form-field>
+</p>
+  <div *ngIf="ruleForm.get('active')?.invalid && ruleForm.get('active')?.touched">
   <span *ngIf="ruleForm.get('active')?.hasError('required')">required</span>
   </div>
+<p>
+<mat-form-field>
+  <mat-label>Type</mat-label>
+  <mat-select formControlName="type" name="type">
+    <mat-option value="Match">Match</mat-option>
+    <mat-option value="Custom">Custom </mat-option>
+    <mat-option value="Monitor">Monitor </mat-option>
+      </mat-select>
 
+</mat-form-field>
+</p>
 
-  <label>Type
-  <select formControlName = "type" name="type">
-    <option value="Match">Match</option>
-    <option value="Custom">Custom </option>
-    <option value="Monitor">Monitor </option>
-  </select>
-</label>
 <div *ngIf="ruleForm.get('type')?.invalid && ruleForm.get('type')?.touched">
   <span *ngIf="ruleForm.get('type')?.hasError('required')"> required</span>
-  </div>
+ </div>
 
+<p>
+ <mat-form-field>
+ <mat-label>Favourite</mat-label>
+ <mat-select formControlName="favourite" name="favourite">
+   <mat-option value="Y">Yes</mat-option>
+   <mat-option value="N"> No</mat-option>
+ </mat-select>
+</mat-form-field>
+</p>
 
-  <label>Favourite
-  <select formControlName = "favourite" name="favourite">
-    <option value="Y">Yes </option>
-    <option value="N"> No </option>
-  </select>
-</label>
-
-  <label>Scheduled
-  <select formControlName = "scheduled" name="scheduled">
-    <option value="Y">Yes </option>
-    <option value="N"> No </option>
-  </select>
-</label>
-
-
-<label>Created Date
+<p>
   <mat-form-field>
+  <mat-label>Scheduled</mat-label>
+  <mat-select formControlName="scheduled" name="scheduled">
+    <mat-option value="Y">Yes</mat-option>
+    <mat-option value="N"> No</mat-option>
+  </mat-select>
+ </mat-form-field>
+ </p>
+ 
+
+<p>
+  
+  <mat-form-field>
+    <mat-label>Created Date</mat-label>
     <input matInput [matDatepicker]="picker" formControlName="createdDate" placeholder="Choose a date">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
-</label>
 
+</p>
+
+<p>
+  <mat-form-field>
+  <mat-label>Alert</mat-label>
+  <mat-select formControlName="alert" name="alert">
+    <mat-option value="Y">Yes</mat-option>
+    <mat-option value="N"> No</mat-option>
+  </mat-select>
+ </mat-form-field>
+</p>
+  <button mat-raised-button type="submit" [disabled]="ruleForm.invalid">Add</button>
   
-   <label>Alert
-  <select formControlName = "alert" name="alert">
-    <option value="Y">Yes </option>
-    <option value="N"> No </option>
-  </select>
-</label>
-
-  <br>
-  <button type="submit" [disabled]="ruleForm.invalid">Add</button>
   </form>
 
+
   <div>
-    <button class="bt-action" (click)="onRemoveSelected()">
-      Remove Selected
-    </button>
+      <button mat-raised-button (click)="onRemoveSelected()"> Remove Selected</button>
+      
   </div>
   <div>
   <ag-grid-angular
@@ -84,3 +101,4 @@
     (gridReady)="onGridReady($event)">
   </ag-grid-angular>
 </div>
+
